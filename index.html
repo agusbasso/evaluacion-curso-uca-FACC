@@ -26,6 +26,8 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .navbar h2 {
@@ -35,6 +37,7 @@
         .navbar-buttons {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .navbar button {
@@ -58,7 +61,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 20px auto;
             background: white;
             border-radius: 8px;
@@ -82,14 +85,11 @@
             padding: 40px 30px;
         }
 
-        /* Login */
-        .login-form {
+        .panel {
             display: none;
-            max-width: 400px;
-            margin: 0 auto;
         }
 
-        .login-form.show {
+        .panel.active {
             display: block;
         }
 
@@ -104,13 +104,18 @@
             color: #202124;
         }
 
-        .form-group input {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid #dadce0;
             border-radius: 4px;
             font-size: 14px;
             font-family: 'Roboto', sans-serif;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
         }
 
         .btn {
@@ -156,16 +161,12 @@
             font-size: 12px;
         }
 
-        /* Panels */
-        .panel {
-            display: none;
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
         }
 
-        .panel.active {
-            display: block;
-        }
-
-        /* Formulario */
         .question-block {
             margin-bottom: 40px;
             padding-bottom: 30px;
@@ -189,7 +190,7 @@
             gap: 10px;
         }
 
-        .radio-option, .checkbox-option {
+        .radio-option {
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -197,11 +198,11 @@
             border-radius: 4px;
         }
 
-        .radio-option:hover, .checkbox-option:hover {
+        .radio-option:hover {
             background-color: #f5f5f5;
         }
 
-        .radio-option input, .checkbox-option input {
+        .radio-option input {
             margin-right: 12px;
             cursor: pointer;
         }
@@ -260,12 +261,85 @@
             justify-content: center;
         }
 
-        /* Dashboard */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        .success-message {
+            display: none;
+            background: #c6e3b5;
+            color: #2d662d;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-info {
+            background: #b3e5fc;
+            color: #01579b;
+        }
+
+        .alert-success {
+            background: #c6e3b5;
+            color: #2d662d;
+        }
+
+        .alert-error {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .editor-question {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .editor-question h3 {
+            margin-bottom: 15px;
+            color: #202124;
+            font-size: 16px;
+        }
+
+        .editor-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .options-input {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid #dadce0;
+        }
+
+        .option-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .option-item input {
+            flex: 1;
+        }
+
+        .option-item button {
+            padding: 8px 12px;
+            font-size: 12px;
         }
 
         .stats-card {
@@ -274,6 +348,7 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .stats-card h3 {
@@ -309,115 +384,6 @@
         .responses-table tr:hover {
             background: #f5f5f5;
         }
-
-        .alert {
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .alert-success {
-            background: #c6e3b5;
-            color: #2d662d;
-        }
-
-        .alert-error {
-            background: #ffcdd2;
-            color: #c62828;
-        }
-
-        .alert-info {
-            background: #b3e5fc;
-            color: #01579b;
-        }
-
-        .editor-section {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .editor-section h3 {
-            margin-bottom: 15px;
-            color: #202124;
-        }
-
-        .editor-field {
-            margin-bottom: 15px;
-        }
-
-        .editor-field label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            font-size: 13px;
-            color: #5f6368;
-        }
-
-        .editor-field input, .editor-field textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 13px;
-        }
-
-        .editor-field textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .success-message {
-            display: none;
-            background: #c6e3b5;
-            color: #2d662d;
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .response-detail {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .response-detail h3 {
-            margin-bottom: 15px;
-            color: #202124;
-        }
-
-        .response-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #dadce0;
-        }
-
-        .response-item:last-child {
-            border-bottom: none;
-        }
-
-        .response-question {
-            font-weight: 600;
-            color: #202124;
-            margin-bottom: 5px;
-            font-size: 13px;
-        }
-
-        .response-answer {
-            color: #5f6368;
-            font-size: 13px;
-            padding-left: 15px;
-        }
     </style>
 </head>
 <body>
@@ -426,16 +392,16 @@
         <div class="navbar-buttons">
             <button id="formBtn" class="nav-btn active" onclick="showPanel('form')">Formulario</button>
             <button id="dashboardBtn" class="nav-btn" onclick="showPanel('dashboard')">Dashboard</button>
-            <button id="editorBtn" class="nav-btn" onclick="showPanel('editor')">Editar</button>
-            <button id="loginBtn" class="nav-btn" onclick="showLoginPanel()">Login</button>
+            <button id="editorBtn" class="nav-btn" onclick="checkAdminAndShow('editor')">Editar</button>
+            <button id="loginBtn" class="nav-btn" onclick="toggleLoginPanel()">Admin</button>
         </div>
     </div>
 
     <div class="container">
-        <!-- Panel: Formulario de Evaluación -->
+        <!-- Panel: Formulario -->
         <div id="formPanel" class="panel active">
             <div class="header">
-                <h1>Programa Ejecutivo en Política y Gestión de la Seguridad -XIV Edición</h1>
+                <h1 id="pageTitle">Programa Ejecutivo en Política y Gestión de la Seguridad -XIV Edición</h1>
                 <p>UCA - KAS 2026 | FORMULARIO DE EVALUACIÓN</p>
             </div>
 
@@ -445,9 +411,7 @@
                 </div>
 
                 <form id="evaluationForm">
-                    <!-- Las preguntas se cargarán desde JSON -->
                     <div id="questionsContainer"></div>
-
                     <div class="button-group">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                         <button type="reset" class="btn btn-secondary">Limpiar</button>
@@ -464,81 +428,68 @@
             </div>
 
             <div class="content">
-                <div class="alert alert-info">
-                    Nota: Los datos se almacenan en el navegador. Solo usuarios autorizados pueden ver esta sección.
+                <div class="stats-card">
+                    <h3 id="totalResponses">0</h3>
+                    <p>Total de Respuestas</p>
                 </div>
 
-                <div class="dashboard-grid">
-                    <div class="stats-card">
-                        <h3 id="totalResponses">0</h3>
-                        <p>Total de Respuestas</p>
-                    </div>
-                    <div class="stats-card">
-                        <h3 id="lastResponse">—</h3>
-                        <p>Última Respuesta</p>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 20px;">
-                    <button class="btn btn-success" onclick="exportToExcel()">📊 Descargar Excel</button>
-                    <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="margin-left: 10px;">Limpiar Todo</button>
-                </div>
+                <button class="btn btn-success" onclick="exportToExcel()">📊 Descargar Excel</button>
+                <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="margin-left: 10px;">Limpiar Todo</button>
 
                 <div id="responsesContainer"></div>
             </div>
         </div>
 
-        <!-- Panel: Editor -->
+        <!-- Panel: Editor de Preguntas -->
         <div id="editorPanel" class="panel">
             <div class="header">
-                <h1>Panel de Edición</h1>
-                <p>Modifica preguntas y configuración del formulario</p>
+                <h1>Gestor de Preguntas</h1>
+                <p>Edita, agrega o elimina preguntas del formulario</p>
             </div>
 
             <div class="content">
                 <div class="alert alert-info">
-                    Solo administradores autorizados pueden ver y usar esta sección.
+                    Solo administradores autorizados pueden editar las preguntas.
                 </div>
 
-                <div class="editor-section">
-                    <h3>Información General del Formulario</h3>
-                    <div class="editor-field">
-                        <label>Título del Formulario</label>
-                        <input type="text" id="formTitle" placeholder="Título del formulario" value="Programa Ejecutivo en Política y Gestión de la Seguridad -XIV Edición">
+                <button class="btn btn-primary" onclick="showAddQuestionForm()" style="margin-bottom: 20px;">➕ Agregar Nueva Pregunta</button>
+
+                <div id="addQuestionForm" style="display: none; background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3>Nueva Pregunta</h3>
+                    <div class="form-group">
+                        <label>Título de la pregunta</label>
+                        <input type="text" id="newQuestionTitle" placeholder="¿Cuál es tu pregunta?">
                     </div>
-                    <div class="editor-field">
-                        <label>Subtítulo</label>
-                        <input type="text" id="formSubtitle" placeholder="Subtítulo" value="UCA - KAS 2026 | FORMULARIO DE EVALUACIÓN">
+                    <div class="form-group">
+                        <label>Tipo de pregunta</label>
+                        <select id="newQuestionType" onchange="updateQuestionTypeFields()">
+                            <option value="text">Texto abierto</option>
+                            <option value="radio">Opción múltiple</option>
+                            <option value="scale">Escala 1-10</option>
+                        </select>
                     </div>
-                    <button class="btn btn-primary" onclick="saveFormInfo()">Guardar Cambios</button>
+                    <div id="newQuestionOptions" style="display: none; margin-top: 15px;">
+                        <label>Opciones (una por línea)</label>
+                        <textarea id="newQuestionOptionsText" placeholder="Opción 1&#10;Opción 2&#10;Opción 3"></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-success" onclick="addNewQuestion()">Guardar Pregunta</button>
+                        <button class="btn btn-secondary" onclick="showAddQuestionForm()">Cancelar</button>
+                    </div>
                 </div>
 
-                <div class="editor-section">
-                    <h3>Cambiar Contraseña de Administrador</h3>
-                    <div class="editor-field">
-                        <label>Nueva Contraseña</label>
-                        <input type="password" id="newPassword" placeholder="Ingresa nueva contraseña">
-                    </div>
-                    <button class="btn btn-primary" onclick="changePassword()">Cambiar Contraseña</button>
-                </div>
-
-                <div class="editor-section">
-                    <h3>Personas Autorizadas para Editar</h3>
-                    <div id="authorizedList">
-                        <p style="font-size: 13px; color: #5f6368; margin-bottom: 10px;">Solo el administrador principal puede editar.</p>
-                    </div>
-                </div>
+                <div id="questionsEditorContainer"></div>
             </div>
         </div>
 
         <!-- Panel: Login -->
-        <div id="loginPanel" class="panel login-form">
+        <div id="loginPanel" class="panel">
             <div class="header">
                 <h1>Acceso de Administrador</h1>
             </div>
 
             <div class="content">
-                <div class="form-group">
+                <div class="form-group" style="max-width: 400px;">
                     <label>Contraseña</label>
                     <input type="password" id="adminPassword" placeholder="Ingresa la contraseña" onkeypress="if(event.key==='Enter') adminLogin()">
                 </div>
@@ -549,62 +500,71 @@
     </div>
 
     <script>
-        // Contraseña por defecto (CAMBIAR POR SEGURIDAD)
-        const DEFAULT_PASSWORD = "admin123";
+        const ADMIN_PASSWORD = "password";
 
-        // Preguntas del formulario
-        const questions = [
+        let isAdmin = false;
+        let questions = [];
+
+        // Preguntas por defecto
+        const defaultQuestions = [
             { id: 1, title: "¿Considera que el contenido del Programa es relevante?", type: "radio", options: ["Totalmente de acuerdo", "De acuerdo", "En desacuerdo", "Totalmente en desacuerdo"] },
-            { id: 2, title: "¿Cómo califica el aporte del Programa?", type: "scale", scale: 10, description: "Califique del 1 al 10" },
+            { id: 2, title: "¿Cómo califica el aporte del Programa?", type: "scale" },
             { id: 3, title: "¿Considera que este Programa contribuye a mejorar su conocimiento sobre la temática de la seguridad?", type: "radio", options: ["Mucho", "Algo", "Poco", "Nada"] },
-            { id: 4, title: "¿Está satisfecho con el conocimiento adquirido durante el Programa?", type: "scale", scale: 10, description: "Califique del 1 al 10" },
+            { id: 4, title: "¿Está satisfecho con el conocimiento adquirido durante el Programa?", type: "scale" },
             { id: 5, title: "Teniendo en cuenta la totalidad del Programa ¿Cuál cree Ud. que fue la cuestión que contribuyó más?", type: "text" },
             { id: 6, title: "Teniendo en cuenta la totalidad del Programa ¿Cuál cree Ud. que fue la cuestión que contribuyó menos?", type: "text" },
             { id: 7, title: "¿Hay algún tema que debería abordarse en futuras ocasiones?", type: "text" },
             { id: 8, title: "¿Estaría interesado/a en participar en otros cursos sobre el mismo tema en el futuro?", type: "radio", options: ["Si", "No"] },
-            { id: 9, title: "¿Considera suficiente el tiempo asignado para la reflexión grupal?", type: "scale", scale: 10 },
-            { id: 10, title: "10. ¿El tiempo asignado a cada tema fue en su opinión suficiente?", type: "scale", scale: 10 },
-            { id: 11, title: "11. ¿Como evalúa la utilidad de los conocimientos?", type: "scale", scale: 10 },
-            { id: 12, title: "12. ¿Cómo calificaría las exposiciones de los docentes?", type: "scale", scale: 10 },
-            { id: 13, title: "13. ¿Cuál es su calificación del Prof. Santiago Espeleta - Estado, sociedad y seguridad?", type: "scale", scale: 10 },
-            { id: 14, title: "14. ¿Cuál es su calificación del Prof. Santiago Ferrari - La seguridad desde la perspectiva regional?", type: "scale", scale: 10 },
-            { id: 15, title: "15. ¿Cuál es su calificación de la Prof. Lourdes Puente - Inteligencia, rol y perspectiva?", type: "scale", scale: 10 },
-            { id: 16, title: "16. ¿Cuál es su calificación del Prof. Alejandro Piscitelli - Violencia, delito y familia?", type: "scale", scale: 10 },
-            { id: 17, title: "17. ¿Cuál es su calificación del Prof. Eduardo Donza - Marginalidad, Vulnerabilidad y pobreza?", type: "scale", scale: 10 },
-            { id: 18, title: "18. ¿Cuál es su calificación del Prof. Sebastián Basso - La problemática de la seguridad?", type: "scale", scale: 10 },
-            { id: 19, title: "19. ¿Cuál es su calificación del Prof. Fabián Calle - Perspectiva seguridad Internacional?", type: "scale", scale: 10 },
-            { id: 20, title: "20. ¿Cuál es su calificación de la Prof. Claudia Gómez Prieto - La inseguridad desde la perspectiva psicológica?", type: "scale", scale: 10 },
-            { id: 21, title: "21. ¿Cuál es su calificación del Prof. Vicente Ventura Barreiro - Los Municipios y políticas públicas en seguridad?", type: "scale", scale: 10 },
-            { id: 22, title: "22. ¿Cuál es su calificación de la Prof. Ana Baracat - Formulación de políticas públicas?", type: "scale", scale: 10 },
-            { id: 23, title: "23. ¿Cuál es su calificación del Prof. Emilio Camporini - Seguridad desde un análisis de política fiscal?", type: "scale", scale: 10 },
-            { id: 24, title: "24. ¿Cuál es su calificación del Prof. Eduardo Ochoa - Ciberseguridad?", type: "scale", scale: 10 },
-            { id: 25, title: "25. ¿Cuál es su calificación del Prof. Leonardo Clausen - El rol de la seguridad Privada?", type: "scale", scale: 10 },
-            { id: 26, title: "26. ¿Cuál es su calificación del Prof. Ignacio Cocca - El rol de la seguridad Privada?", type: "scale", scale: 10 },
-            { id: 27, title: "27. ¿Cuál es su calificación del Prof. Gabriel Curi - Los medios de comunicación y la Seguridad?", type: "scale", scale: 10 },
-            { id: 28, title: "28. ¿Cuál es su calificación del Prof. Vicente Ventura - Crimen Organizado. Perspectiva Actual?", type: "scale", scale: 10 },
-            { id: 29, title: "29. ¿Cuál es su calificación del Prof. Danilo Gelman - Extremismo violento y terrorismo?", type: "scale", scale: 10 },
-            { id: 30, title: "30. ¿Cuál es su calificación de la Prof. Rocío Ludovico - El delito de Trata de Personas?", type: "scale", scale: 10 },
-            { id: 31, title: "31. ¿Cuál es su calificación del Prof. Martín Vignale - Delitos Económicos?", type: "scale", scale: 10 },
-            { id: 32, title: "32. ¿El Programa cumplió con sus expectativas?", type: "scale", scale: 10 },
+            { id: 9, title: "¿Considera suficiente el tiempo asignado para la reflexión grupal?", type: "scale" },
+            { id: 10, title: "10. ¿El tiempo asignado a cada tema fue en su opinión suficiente?", type: "scale" },
+            { id: 11, title: "11. ¿Como evalúa la utilidad de los conocimientos?", type: "scale" },
+            { id: 12, title: "12. ¿Cómo calificaría las exposiciones de los docentes?", type: "scale" },
+            { id: 13, title: "13. ¿Cuál es su calificación del Prof. Santiago Espeleta?", type: "scale" },
+            { id: 14, title: "14. ¿Cuál es su calificación del Prof. Santiago Ferrari?", type: "scale" },
+            { id: 15, title: "15. ¿Cuál es su calificación de la Prof. Lourdes Puente?", type: "scale" },
+            { id: 16, title: "16. ¿Cuál es su calificación del Prof. Alejandro Piscitelli?", type: "scale" },
+            { id: 17, title: "17. ¿Cuál es su calificación del Prof. Eduardo Donza?", type: "scale" },
+            { id: 18, title: "18. ¿Cuál es su calificación del Prof. Sebastián Basso?", type: "scale" },
+            { id: 19, title: "19. ¿Cuál es su calificación del Prof. Fabián Calle?", type: "scale" },
+            { id: 20, title: "20. ¿Cuál es su calificación de la Prof. Claudia Gómez Prieto?", type: "scale" },
+            { id: 21, title: "21. ¿Cuál es su calificación del Prof. Vicente Ventura Barreiro?", type: "scale" },
+            { id: 22, title: "22. ¿Cuál es su calificación de la Prof. Ana Baracat?", type: "scale" },
+            { id: 23, title: "23. ¿Cuál es su calificación del Prof. Emilio Camporini?", type: "scale" },
+            { id: 24, title: "24. ¿Cuál es su calificación del Prof. Eduardo Ochoa?", type: "scale" },
+            { id: 25, title: "25. ¿Cuál es su calificación del Prof. Leonardo Clausen?", type: "scale" },
+            { id: 26, title: "26. ¿Cuál es su calificación del Prof. Ignacio Cocca?", type: "scale" },
+            { id: 27, title: "27. ¿Cuál es su calificación del Prof. Gabriel Curi?", type: "scale" },
+            { id: 28, title: "28. ¿Cuál es su calificación del Prof. Vicente Ventura?", type: "scale" },
+            { id: 29, title: "29. ¿Cuál es su calificación del Prof. Danilo Gelman?", type: "scale" },
+            { id: 30, title: "30. ¿Cuál es su calificación de la Prof. Rocío Ludovico?", type: "scale" },
+            { id: 31, title: "31. ¿Cuál es su calificación del Prof. Martín Vignale?", type: "scale" },
+            { id: 32, title: "32. ¿El Programa cumplió con sus expectativas?", type: "scale" },
             { id: 33, title: "33. ¿Qué le pareció la extensión del curso?", type: "radio", options: ["Muy largo", "Muy corto", "Tuvo una extensión apropiada"] },
-            { id: 34, title: "34. ¿Cuál es su evaluación general del curso?", type: "scale", scale: 10 },
-            { id: 35, title: "35. ¿Cómo califica la coordinación del Curso?", type: "scale", scale: 10 },
-            { id: 36, title: "36. ¿Qué probabilidades hay de que recomiende este curso?", type: "scale", scale: 10 },
-            { id: 37, title: "37. Por favor, comparta cualquier comentario y/o sugerencia adicional", type: "text" }
+            { id: 34, title: "34. ¿Cuál es su evaluación general del curso?", type: "scale" },
+            { id: 35, title: "35. ¿Cómo califica la coordinación del Curso?", type: "scale" },
+            { id: 36, title: "36. ¿Qué probabilidades hay de que recomiende este curso?", type: "scale" },
+            { id: 37, title: "37. Por favor, comparta cualquier comentario adicional", type: "text" }
         ];
-
-        // Variables globales
-        let isAdmin = false;
-        let adminPassword = DEFAULT_PASSWORD;
 
         // Inicializar
         function init() {
+            loadQuestions();
             renderForm();
-            updateDashboard();
             checkAdminStatus();
         }
 
-        // Renderizar el formulario
+        // Cargar preguntas
+        function loadQuestions() {
+            const saved = localStorage.getItem('customQuestions');
+            questions = saved ? JSON.parse(saved) : defaultQuestions;
+        }
+
+        // Guardar preguntas
+        function saveQuestions() {
+            localStorage.setItem('customQuestions', JSON.stringify(questions));
+        }
+
+        // Renderizar formulario
         function renderForm() {
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
@@ -612,12 +572,7 @@
             questions.forEach(q => {
                 const div = document.createElement('div');
                 div.className = 'question-block';
-
-                let html = `<div class="question-title">${q.title} <span class="required">*</span></div>`;
-
-                if (q.description) {
-                    html += `<div style="font-size: 13px; color: #5f6368; margin-bottom: 10px;">${q.description}</div>`;
-                }
+                let html = `<div class="question-title">${q.title} <span style="color: #d32f2f;">*</span></div>`;
 
                 if (q.type === 'radio') {
                     html += '<div class="radio-group">';
@@ -632,10 +587,10 @@
                     html += '</div>';
                 } else if (q.type === 'scale') {
                     html += '<div class="scale-container"><div class="scale-label">1</div><div class="scale-options">';
-                    for (let i = 1; i <= q.scale; i++) {
+                    for (let i = 1; i <= 10; i++) {
                         html += `<div class="scale-option"><input type="radio" name="q${q.id}" value="${i}" required></div>`;
                     }
-                    html += '</div><div class="scale-label">' + q.scale + '</div></div>';
+                    html += '</div><div class="scale-label">10</div></div>';
                 } else if (q.type === 'text') {
                     html += `<textarea class="textarea-input" name="q${q.id}" required placeholder="Escriba su respuesta"></textarea>`;
                 }
@@ -643,6 +598,147 @@
                 div.innerHTML = html;
                 container.appendChild(div);
             });
+        }
+
+        // Renderizar editor de preguntas
+        function renderEditor() {
+            const container = document.getElementById('questionsEditorContainer');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = 'editor-question';
+                let html = `
+                    <h3>Pregunta ${idx + 1}</h3>
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" value="${q.title}" onchange="updateQuestion(${q.id}, 'title', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select onchange="updateQuestion(${q.id}, 'type', this.value)">
+                            <option value="text" ${q.type === 'text' ? 'selected' : ''}>Texto abierto</option>
+                            <option value="radio" ${q.type === 'radio' ? 'selected' : ''}>Opción múltiple</option>
+                            <option value="scale" ${q.type === 'scale' ? 'selected' : ''}>Escala 1-10</option>
+                        </select>
+                    </div>
+                `;
+
+                if (q.type !== 'scale' && q.type !== 'text') {
+                    html += '<div class="options-input"><label>Opciones</label>';
+                    q.options.forEach((opt, i) => {
+                        html += `
+                            <div class="option-item">
+                                <input type="text" value="${opt}" onchange="updateOption(${q.id}, ${i}, this.value)">
+                                <button class="btn btn-danger btn-sm" onclick="deleteOption(${q.id}, ${i})">Eliminar</button>
+                            </div>
+                        `;
+                    });
+                    html += `
+                        <button class="btn btn-secondary btn-sm" onclick="addOption(${q.id})">Agregar Opción</button>
+                    </div>
+                    `;
+                }
+
+                html += `
+                    <div class="editor-controls">
+                        <button class="btn btn-danger" onclick="deleteQuestion(${q.id})">🗑️ Eliminar Pregunta</button>
+                    </div>
+                `;
+
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+        }
+
+        // Actualizar pregunta
+        function updateQuestion(id, field, value) {
+            const q = questions.find(x => x.id === id);
+            if (q) {
+                q[field] = value;
+                saveQuestions();
+                renderForm();
+                renderEditor();
+            }
+        }
+
+        // Actualizar opción
+        function updateOption(id, idx, value) {
+            const q = questions.find(x => x.id === id);
+            if (q && q.options) {
+                q.options[idx] = value;
+                saveQuestions();
+                renderForm();
+            }
+        }
+
+        // Agregar opción
+        function addOption(id) {
+            const q = questions.find(x => x.id === id);
+            if (q && q.options) {
+                q.options.push('Nueva opción');
+                saveQuestions();
+                renderEditor();
+            }
+        }
+
+        // Eliminar opción
+        function deleteOption(id, idx) {
+            const q = questions.find(x => x.id === id);
+            if (q && q.options) {
+                q.options.splice(idx, 1);
+                saveQuestions();
+                renderEditor();
+            }
+        }
+
+        // Agregar pregunta nueva
+        function addNewQuestion() {
+            const title = document.getElementById('newQuestionTitle').value;
+            const type = document.getElementById('newQuestionType').value;
+            if (!title) {
+                alert('Ingresa un título para la pregunta');
+                return;
+            }
+
+            const newId = Math.max(...questions.map(q => q.id), 0) + 1;
+            const newQuestion = { id: newId, title, type };
+
+            if (type === 'radio') {
+                const optionsText = document.getElementById('newQuestionOptionsText').value;
+                newQuestion.options = optionsText.split('\n').filter(o => o.trim()).map(o => o.trim());
+            }
+
+            questions.push(newQuestion);
+            saveQuestions();
+            renderForm();
+            renderEditor();
+            showAddQuestionForm();
+            alert('✓ Pregunta agregada');
+        }
+
+        // Eliminar pregunta
+        function deleteQuestion(id) {
+            if (confirm('¿Eliminar esta pregunta?')) {
+                questions = questions.filter(q => q.id !== id);
+                saveQuestions();
+                renderForm();
+                renderEditor();
+                alert('✓ Pregunta eliminada');
+            }
+        }
+
+        // Mostrar formulario agregar pregunta
+        function showAddQuestionForm() {
+            const form = document.getElementById('addQuestionForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            updateQuestionTypeFields();
+        }
+
+        // Actualizar campos según tipo
+        function updateQuestionTypeFields() {
+            const type = document.getElementById('newQuestionType').value;
+            document.getElementById('newQuestionOptions').style.display = type === 'radio' ? 'block' : 'none';
         }
 
         // Mostrar panel
@@ -653,26 +749,22 @@
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(panelName + 'Btn').classList.add('active');
 
-            if (panelName === 'editor' && !isAdmin) {
-                showLoginModal();
-            } else if (panelName === 'dashboard' && !isAdmin) {
-                showLoginModal();
-            }
-
             if (panelName === 'dashboard') {
                 updateDashboard();
+            } else if (panelName === 'editor') {
+                renderEditor();
             }
         }
 
-        // Login
+        // Admin
         function adminLogin() {
             const password = document.getElementById('adminPassword').value;
-            if (password === adminPassword) {
+            if (password === ADMIN_PASSWORD) {
                 isAdmin = true;
                 localStorage.setItem('adminSession', 'true');
                 alert('✓ Acceso concedido');
+                checkAdminStatus();
                 showPanel('editor');
-                updateNavbar();
             } else {
                 alert('❌ Contraseña incorrecta');
             }
@@ -682,31 +774,24 @@
         function adminLogout() {
             isAdmin = false;
             localStorage.removeItem('adminSession');
+            checkAdminStatus();
             showPanel('form');
-            updateNavbar();
         }
 
         function checkAdminStatus() {
             isAdmin = localStorage.getItem('adminSession') === 'true';
-            updateNavbar();
+            document.getElementById('logoutBtn').style.display = isAdmin ? 'inline-block' : 'none';
         }
 
-        function updateNavbar() {
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (isAdmin) {
-                logoutBtn.style.display = 'inline-block';
-            } else {
-                logoutBtn.style.display = 'none';
-            }
-        }
-
-        function showLoginModal() {
+        function checkAdminAndShow(panel) {
             if (!isAdmin) {
                 showPanel('login');
+            } else {
+                showPanel(panel);
             }
         }
 
-        function showLoginPanel() {
+        function toggleLoginPanel() {
             if (isAdmin) {
                 adminLogout();
             } else {
@@ -714,10 +799,9 @@
             }
         }
 
-        // Guardar respuesta
+        // Formulario
         document.getElementById('evaluationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             data.timestamp = new Date().toISOString();
@@ -730,7 +814,6 @@
             setTimeout(() => {
                 this.reset();
                 document.getElementById('successMessage').classList.remove('show');
-                updateDashboard();
             }, 2000);
         });
 
@@ -739,58 +822,22 @@
             const responses = JSON.parse(localStorage.getItem('responses') || '[]');
             document.getElementById('totalResponses').textContent = responses.length;
 
-            if (responses.length > 0) {
-                const lastDate = new Date(responses[responses.length - 1].timestamp);
-                document.getElementById('lastResponse').textContent = lastDate.toLocaleDateString('es-AR');
-            }
-
-            renderResponses(responses);
-        }
-
-        function renderResponses(responses) {
             const container = document.getElementById('responsesContainer');
             if (responses.length === 0) {
                 container.innerHTML = '<p style="color: #5f6368;">No hay respuestas aún.</p>';
                 return;
             }
 
-            let html = '<table class="responses-table"><thead><tr><th>#</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody>';
+            let html = '<table class="responses-table"><thead><tr><th>#</th><th>Fecha</th></tr></thead><tbody>';
             responses.forEach((r, i) => {
                 const date = new Date(r.timestamp).toLocaleString('es-AR');
-                html += `<tr>
-                    <td>${i + 1}</td>
-                    <td>${date}</td>
-                    <td><button class="btn btn-sm" onclick="showResponseDetail(${i})">Ver</button></td>
-                </tr>`;
+                html += `<tr><td>${i + 1}</td><td>${date}</td></tr>`;
             });
             html += '</tbody></table>';
             container.innerHTML = html;
         }
 
-        function showResponseDetail(index) {
-            const responses = JSON.parse(localStorage.getItem('responses') || '[]');
-            const response = responses[index];
-            const detail = document.getElementById('responsesContainer');
-
-            let html = `<div class="response-detail">
-                <h3>Respuesta #${index + 1}</h3>
-                <p style="font-size: 12px; color: #5f6368; margin-bottom: 15px;">
-                    Enviada: ${new Date(response.timestamp).toLocaleString('es-AR')}
-                </p>`;
-
-            questions.forEach(q => {
-                const answer = response['q' + q.id];
-                html += `<div class="response-item">
-                    <div class="response-question">${q.title}</div>
-                    <div class="response-answer">${answer || 'Sin respuesta'}</div>
-                </div>`;
-            });
-
-            html += `<button class="btn btn-secondary" onclick="updateDashboard()">Volver</button></div>`;
-            detail.innerHTML = html;
-        }
-
-        // Exportar a Excel
+        // Exportar Excel
         function exportToExcel() {
             const responses = JSON.parse(localStorage.getItem('responses') || '[]');
             if (responses.length === 0) {
@@ -798,7 +845,6 @@
                 return;
             }
 
-            // Preparar datos
             const data = [];
             const headers = ['Fecha', ...questions.map(q => q.title)];
             data.push(headers);
@@ -811,38 +857,14 @@
                 data.push(row);
             });
 
-            // Crear workbook
             const ws = XLSX.utils.aoa_to_sheet(data);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Respuestas');
-
-            // Descargar
-            XLSX.writeFile(wb, 'evaluacion_uca_' + new Date().toISOString().split('T')[0] + '.xlsx');
-        }
-
-        // Edición
-        function saveFormInfo() {
-            const title = document.getElementById('formTitle').value;
-            const subtitle = document.getElementById('formSubtitle').value;
-            localStorage.setItem('formTitle', title);
-            localStorage.setItem('formSubtitle', subtitle);
-            alert('✓ Cambios guardados');
-        }
-
-        function changePassword() {
-            const newPass = document.getElementById('newPassword').value;
-            if (newPass.length < 6) {
-                alert('La contraseña debe tener al menos 6 caracteres');
-                return;
-            }
-            adminPassword = newPass;
-            localStorage.setItem('adminPassword', newPass);
-            alert('✓ Contraseña cambiada');
-            document.getElementById('newPassword').value = '';
+            XLSX.writeFile(wb, 'evaluacion_' + new Date().toISOString().split('T')[0] + '.xlsx');
         }
 
         function clearAllData() {
-            if (confirm('¿Está seguro? Se eliminarán TODAS las respuestas y no se puede deshacer.')) {
+            if (confirm('¿Eliminar TODAS las respuestas? No se puede deshacer.')) {
                 localStorage.removeItem('responses');
                 updateDashboard();
                 alert('✓ Datos eliminados');
