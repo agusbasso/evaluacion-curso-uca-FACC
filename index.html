@@ -819,8 +819,11 @@
         }
 
         // Backend compartido (Google Apps Script)
+        const DEFAULT_BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxhDAWNZo8VnEu95kYUzlOm7H8l_nUAtd08ssAnJFy1BOhPcRAZGDoJN9l6oD8iQp94/exec';
         function getBackendUrl() {
-            return localStorage.getItem('backendUrl') || '';
+            const override = localStorage.getItem('backendUrl');
+            if (override !== null) return override; // '' means explicitly disabled
+            return DEFAULT_BACKEND_URL;
         }
         function saveBackendUrl() {
             const v = document.getElementById('backendUrlInput').value.trim();
