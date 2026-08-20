@@ -433,6 +433,17 @@
                     <p>Total de Respuestas</p>
                 </div>
 
+                <div id="backendConfig" style="background:#f5f5f5;padding:15px;border-radius:8px;margin-bottom:20px;">
+                    <label style="font-weight:600;display:block;margin-bottom:6px;">Backend compartido (Google Apps Script URL)</label>
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                        <input type="text" id="backendUrlInput" placeholder="https://script.google.com/macros/s/…/exec" style="flex:1;min-width:280px;padding:8px;border:1px solid #ccc;border-radius:4px;">
+                        <button class="btn btn-primary btn-sm" onclick="saveBackendUrl()">Guardar</button>
+                        <button class="btn btn-secondary btn-sm" onclick="clearBackendUrl()">Borrar</button>
+                    </div>
+                    <p id="backendStatus" style="margin-top:6px;font-size:0.9em;color:#5f6368;">Sin backend configurado — las respuestas se guardan sólo en el navegador de cada persona.</p>
+                </div>
+
+                <button class="btn btn-success" onclick="refreshResponses()">🔄 Actualizar</button>
                 <button class="btn btn-success" onclick="exportToExcel()">📊 Descargar Excel</button>
                 <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="margin-left: 10px;">Limpiar Todo</button>
 
@@ -753,7 +764,12 @@
             document.getElementById(panelName + 'Btn').classList.add('active');
 
             if (panelName === 'dashboard') {
-                updateDashboard();
+                renderBackendStatus();
+                if (getBackendUrl()) {
+                    refreshResponses();
+                } else {
+                    updateDashboard();
+                }
             } else if (panelName === 'editor') {
                 renderEditor();
             }
@@ -802,6 +818,76 @@
             }
         }
 
+        // Backend compartido (Google Apps Script)
+        function getBackendUrl() {
+            return localStorage.getItem('backendUrl') || '';
+        }
+        function saveBackendUrl() {
+            const v = document.getElementById('backendUrlInput').value.trim();
+            if (v && !/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/.test(v)) {
+                if (!confirm('La URL no parece un endpoint de Google Apps Script. ¿Guardar igual?')) return;
+            }
+            localStorage.setItem('backendUrl', v);
+            renderBackendStatus();
+            refreshResponses();
+        }
+        function clearBackendUrl() {
+            localStorage.removeItem('backendUrl');
+            document.getElementById('backendUrlInput').value = '';
+            renderBackendStatus();
+            updateDashboard();
+        }
+        function renderBackendStatus() {
+            const url = getBackendUrl();
+            const el = document.getElementById('backendStatus');
+            const input = document.getElementById('backendUrlInput');
+            if (!el) return;
+            if (url) {
+                input.value = url;
+                el.textContent = '✓ Backend configurado — todas las respuestas se sincronizan.';
+                el.style.color = '#137333';
+            } else {
+                el.textContent = 'Sin backend configurado — las respuestas se guardan sólo en el navegador de cada persona.';
+                el.style.color = '#5f6368';
+            }
+        }
+        async function postToBackend(payload) {
+            const url = getBackendUrl();
+            if (!url) return;
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.warn('No se pudo enviar al backend:', err);
+            }
+        }
+        async function fetchBackendResponses() {
+            const url = getBackendUrl();
+            if (!url) return [];
+            try {
+                const r = await fetch(url, {method: 'GET'});
+                if (!r.ok) return [];
+                const j = await r.json();
+                return Array.isArray(j) ? j : (j.responses || []);
+            } catch (err) {
+                console.warn('No se pudo leer del backend:', err);
+                return [];
+            }
+        }
+        async function refreshResponses() {
+            const el = document.getElementById('totalResponses');
+            if (el) el.textContent = '…';
+            const remote = await fetchBackendResponses();
+            if (remote.length) {
+                localStorage.setItem('responses', JSON.stringify(remote));
+            }
+            updateDashboard();
+        }
+
         // Formulario
         document.getElementById('evaluationForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -812,6 +898,8 @@
             let responses = JSON.parse(localStorage.getItem('responses') || '[]');
             responses.push(data);
             localStorage.setItem('responses', JSON.stringify(responses));
+
+            postToBackend(data);
 
             document.getElementById('successMessage').classList.add('show');
             setTimeout(() => {
@@ -824,6 +912,7 @@
         function updateDashboard() {
             const responses = JSON.parse(localStorage.getItem('responses') || '[]');
             document.getElementById('totalResponses').textContent = responses.length;
+            renderBackendStatus();
 
             const container = document.getElementById('responsesContainer');
             if (responses.length === 0) {
