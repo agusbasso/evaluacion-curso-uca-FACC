@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluación UCA - Programa Ejecutivo en Política y Gestión de la Seguridad</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -391,7 +391,7 @@
         <h2>📋 Evaluación UCA KAS 2026</h2>
         <div class="navbar-buttons">
             <button id="formBtn" class="nav-btn active" onclick="showPanel('form')">Formulario</button>
-            <button id="dashboardBtn" class="nav-btn" onclick="showPanel('dashboard')">Dashboard</button>
+            <button id="dashboardBtn" class="nav-btn" onclick="checkAdminAndShow('dashboard')">Dashboard</button>
             <button id="editorBtn" class="nav-btn" onclick="checkAdminAndShow('editor')">Editar</button>
             <button id="loginBtn" class="nav-btn" onclick="toggleLoginPanel()">Admin</button>
         </div>
@@ -840,8 +840,17 @@
             container.innerHTML = html;
         }
 
-        // Exportar Excel
+        // Exportar Excel (solo admin)
         function exportToExcel() {
+            if (!isAdmin) {
+                alert('❌ Solo administradores pueden descargar el Excel.');
+                showPanel('login');
+                return;
+            }
+            if (typeof XLSX === 'undefined') {
+                alert('❌ La librería XLSX no cargó. Revisá tu conexión y refrescá la página.');
+                return;
+            }
             const responses = JSON.parse(localStorage.getItem('responses') || '[]');
             if (responses.length === 0) {
                 alert('No hay respuestas para exportar');
@@ -860,13 +869,24 @@
                 data.push(row);
             });
 
-            const ws = XLSX.utils.aoa_to_sheet(data);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Respuestas');
-            XLSX.writeFile(wb, 'evaluacion_' + new Date().toISOString().split('T')[0] + '.xlsx');
+            try {
+                const ws = XLSX.utils.aoa_to_sheet(data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Respuestas');
+                const filename = 'evaluacion_' + new Date().toISOString().split('T')[0] + '.xlsx';
+                XLSX.writeFile(wb, filename);
+            } catch (err) {
+                console.error('Error al exportar:', err);
+                alert('❌ Error al generar el Excel: ' + err.message);
+            }
         }
 
         function clearAllData() {
+            if (!isAdmin) {
+                alert('❌ Solo administradores pueden borrar los datos.');
+                showPanel('login');
+                return;
+            }
             if (confirm('¿Eliminar TODAS las respuestas? No se puede deshacer.')) {
                 localStorage.removeItem('responses');
                 updateDashboard();
