@@ -53,6 +53,8 @@ const QUESTIONS = {
   q37: 'Evaluación general del curso',
   q38: 'Calificación de la coordinación del curso',
   q39: '¿Recomendaría este curso? (probabilidad)',
+  q41: '¿Qué tipo de cursada prefiere?',
+  q42: '¿Qué horario de cursada prefiere?',
   q40: 'Comentarios adicionales'
 };
 
